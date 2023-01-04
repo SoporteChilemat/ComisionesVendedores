@@ -362,15 +362,15 @@ public class ComisionesVendedores {
     public static void llenarcomboxVendedores(ArrayList<Vendedores> arrFinal) {
         System.out.println("arrFinal.size() " + arrFinal.size());
 
-        Principal.jComboBoxVendedoresVA.removeAllItems();
+//        Principal.jComboBoxVendedoresVA.removeAllItems();
 
         for (int k = 0; k < arrFinal.size(); k++) {
 
             Vendedores vendedor = arrFinal.get(k);
 
-            Principal.jComboBoxVendedoresVA.addItem(vendedor.getNombre());
-            Principal.jComboBoxVendedoresPB.addItem(vendedor.getNombre());
-            Principal.jComboBoxVendedoresOL.addItem(vendedor.getNombre());
+//            Principal.jComboBoxVendedoresVA.addItem(vendedor.getNombre());
+//            Principal.jComboBoxVendedoresPB.addItem(vendedor.getNombre());
+//            Principal.jComboBoxVendedoresOL.addItem(vendedor.getNombre());
 
             Principal.principal.repaint();
             Principal.principal.revalidate();           
@@ -379,8 +379,5 @@ public class ComisionesVendedores {
 //---------------------------------------------------------------------------------------    
 
     public static void mostrarVendedoresEnTabla() {
-        
-
-        
     }
 }
