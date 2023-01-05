@@ -7,7 +7,7 @@ import CLASES.Vendedores;
 import CLASES.Ventas;
 import CLASES.Excel;
 import CLASES.PanelLocal;
-import VENTANAS.Principal;
+import VENTANAS.VentanaPrincipal;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -351,17 +351,17 @@ public class ComisionesVendedores {
     public static void llenarcomboxVendedores(ArrayList<Vendedores> arrFinal) {
         System.out.println("arrFinal.size() " + arrFinal.size());
 
-//        Principal.jComboBoxVendedoresVA.removeAllItems();
+//        VentanaPrincipal.jComboBoxVendedoresVA.removeAllItems();
         for (int k = 0; k < arrFinal.size(); k++) {
 
             Vendedores vendedor = arrFinal.get(k);
 
             PanelLocal.jComboBoxVendedoresVA.addItem(vendedor.getNombre());
-//            Principal.jComboBoxVendedoresPB.addItem(vendedor.getNombre());
-//            Principal.jComboBoxVendedoresOL.addItem(vendedor.getNombre());
+//            VentanaPrincipal.jComboBoxVendedoresPB.addItem(vendedor.getNombre());
+//            VentanaPrincipal.jComboBoxVendedoresOL.addItem(vendedor.getNombre());
 
-            Principal.principal.repaint();
-            Principal.principal.revalidate();
+            VentanaPrincipal.ventanaPrincipal.repaint();
+            VentanaPrincipal.ventanaPrincipal.revalidate();
         }
     }
 //---------------------------------------------------------------------------------------    

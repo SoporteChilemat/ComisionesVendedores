@@ -4,9 +4,15 @@
  */
 package VENTANAS;
 
+import DAO.consultaMonitorReporte;
+import static VENTANAS.VentanaLogin.nombre;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import javax.swing.ImageIcon;
+import org.apache.commons.io.FileUtils;
 import static org.apache.poi.hssf.usermodel.HeaderFooter.date;
 
 /**
@@ -122,53 +128,217 @@ public class VentanaDescargar extends javax.swing.JDialog {
         int parseInt2 = Integer.parseInt(name2);
 
         if (parseInt < parseInt2) {
-            
+
+            String namex = parseInt + "@" + parseInt2;
+            CompletableFuture.runAsync(() -> {
+                try {
+                    this.dispose();
+                    
+                    vd = new VentanaDescarga(VentanaPrincipal.ventanaPrincipal, false);
+                    vd.setVisible(true);
+                    descargarInformeCompartido(namex);
+
+                    File file11 = new File(System.getProperty("user.dir") + "\\ventas\\PB\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xls"); //catch (IOException ex) {
+                    File file22 = new File(System.getProperty("user.dir") + "\\ventas\\VA\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+                    File file33 = new File(System.getProperty("user.dir") + "\\ventas\\OL\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+
+                    while (file11.length() == 0 || file22.length() == 0 || file33.length() == 0) {
+                        Thread.sleep(1000);
+                    }
+                    try {
+                        vd.setVisible(false);
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                } catch (Exception ex) {
+
+                }
+            });
         } else {
-            
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static void descargarInformeCompartido(String fecha2) {
+
+        eliminarFileFECHA();
+
+        ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\Gif\\ok.png");
+
+        try {
+////////////////////////////////////////////////////////////////////////////////                
+/////////////////////////////////// PB  ///////////////////////////////////             
+////////////////////////////////////////////////////////////////////////////////     
+            CompletableFuture.runAsync(() -> {
+                try {
+                    String respre = consultaMonitorReporte.ConsultaLocalMonitorReporte(nombre, "PB");
+                    System.out.println("respre " + respre);
+                    if ("".equals(respre)) {
+                        consultaMonitorReporte.registraMonitorReporte(fecha2, nombre, "PB");
+                    } else {
+                        consultaMonitorReporte.actualizaMonitorReporte(fecha2, nombre, "PB");
+                    }
+////////////////////////////////////////////////////////////////////////////////
+                    String respre0 = consultaMonitorReporte.ConsultaLocalReportesfecha(nombre, "PB");
+                    if ("".equals(respre0)) {
+                        consultaMonitorReporte.registraReportesFechaNull(nombre);
+                    } else {
+                        consultaMonitorReporte.actualizaReportesFecha(nombre, "PB");
+                    }
+////////////////////////////////////////////////////////////////////////////////
+                    byte[] bytes = null;
+                    int length = 0;
+                    while (length == 0) {
+                        try {
+                            bytes = consultaMonitorReporte.ConsultaLocal("PB", "xls", nombre);
+                            length = bytes.length;
+                        } catch (Exception ex) {
+                            length = 0;
+                        }
+                        System.out.println("length " + length);
+                        Thread.sleep(1000);
+                    }
+                    VentanaDescarga.jLabel4.setIcon(icon);
+                } catch (Exception ex) {
+
+                }
+            });
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// VA  ///////////////////////////////////  
+////////////////////////////////////////////////////////////////////////////////  
+            CompletableFuture.runAsync(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String respre = consultaMonitorReporte.ConsultaLocalMonitorReporte(nombre, "VA");
+                        System.out.println("respre " + respre);
+                        if ("".equals(respre)) {
+                            consultaMonitorReporte.registraMonitorReporte(fecha2, nombre, "VA");
+                        } else {
+                            consultaMonitorReporte.actualizaMonitorReporte(fecha2, nombre, "VA");
+                        }
+////////////////////////////////////////////////////////////////////////////////
+                        String respre0 = consultaMonitorReporte.ConsultaLocalReportesfecha(nombre, "VA");
+                        if ("".equals(respre0)) {
+                            consultaMonitorReporte.registraReportesFechaNull(nombre);
+                        } else {
+                            consultaMonitorReporte.actualizaReportesFecha(nombre, "VA");
+                        }
+////////////////////////////////////////////////////////////////////////////////
+                        byte[] bytes = null;
+                        int length = 0;
+                        while (length == 0) {
+                            try {
+                                bytes = consultaMonitorReporte.ConsultaLocal("VA", "xlsx", nombre);
+                                length = bytes.length;
+                            } catch (Exception ex) {
+                                length = 0;
+                            }
+                            System.out.println("length " + length);
+                            Thread.sleep(1000);
+                        }
+                        VentanaDescarga.jLabel5.setIcon(icon);
+                    } catch (Exception ex) {
+
+                    }
+                }
+            });
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// OL  ///////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+            CompletableFuture.runAsync(() -> {
+                try {
+                    String respre = consultaMonitorReporte.ConsultaLocalMonitorReporte(nombre, "OL");
+                    System.out.println("respre " + respre);
+                    if ("".equals(respre)) {
+                        consultaMonitorReporte.registraMonitorReporte(fecha2, nombre, "OL");
+                    } else {
+                        consultaMonitorReporte.actualizaMonitorReporte(fecha2, nombre, "OL");
+                    }
+////////////////////////////////////////////////////////////////////////////////
+                    String respre0 = consultaMonitorReporte.ConsultaLocalReportesfecha(nombre, "OL");
+                    if ("".equals(respre0)) {
+                        consultaMonitorReporte.registraReportesFechaNull(nombre);
+                    } else {
+                        consultaMonitorReporte.actualizaReportesFecha(nombre, "OL");
+                    }
+////////////////////////////////////////////////////////////////////////////////
+                    byte[] bytes = null;
+                    int length = 0;
+                    while (length == 0) {
+                        try {
+                            bytes = consultaMonitorReporte.ConsultaLocal("OL", "xlsx", nombre);
+                            length = bytes.length;
+                        } catch (Exception ex) {
+                            length = 0;
+                        }
+                        System.out.println("length " + length);
+                        Thread.sleep(1000);
+                    }
+                    VentanaDescarga.jLabel6.setIcon(icon);
+                } catch (Exception ex) {
+
+                }
+            });
+////////////////////////////////////////////////////////////////////////////////
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static public void eliminarFileFECHA() {
+        String dir = System.getProperty("user.dir");
+
+        File filePB = new File(dir + "\\ventas\\PB\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xls");
+        File fileVA = new File(dir + "\\ventas\\VA\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+        File fileOL = new File(dir + "\\ventas\\OL\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+
+        do {
+            System.out.println("eliminarFileFECHA");
+            try {
+                FileUtils.forceDelete(filePB);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            try {
+                FileUtils.forceDelete(fileVA);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            try {
+                FileUtils.forceDelete(fileOL);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } while (filePB.exists() || fileVA.exists() || fileOL.exists());
+
+        filePB = new File(dir + "\\ventas\\PB\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xls");
+        fileVA = new File(dir + "\\ventas\\VA\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+        fileOL = new File(dir + "\\ventas\\OL\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xlsx");
+
+        do {
+            System.out.println("eliminarFileFECHA");
+            try {
+                FileUtils.forceDelete(filePB);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            try {
+                FileUtils.forceDelete(fileVA);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            try {
+                FileUtils.forceDelete(fileOL);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } while (filePB.exists() || fileVA.exists() || fileOL.exists());
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaDescargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaDescargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaDescargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaDescargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VentanaDescargar dialog = new VentanaDescargar(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -177,4 +347,5 @@ public class VentanaDescargar extends javax.swing.JDialog {
     public static rojeru_san.componentes.RSDateChooser rSDateChooser1;
     public static rojeru_san.componentes.RSDateChooser rSDateChooser2;
     // End of variables declaration//GEN-END:variables
+    public static VentanaDescarga vd;
 }

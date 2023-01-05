@@ -4,22 +4,18 @@
  */
 package VENTANAS;
 
-import CLASES.Panel;
 import CLASES.PanelLocal;
-import static LOGICA.ComisionesVendedores.principal;
+import Connect.DbConnection;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractCellEditor;
-import javax.swing.Action;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -28,14 +24,15 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author DELL
  */
-public class Principal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame {
 
-    public static Principal principal;
+    public static DbConnection conex;
+    public static VentanaPrincipal ventanaPrincipal;
 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public VentanaPrincipal() {
         initComponents();
     }
 
@@ -296,21 +293,70 @@ public class Principal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //metodo que hace que se ejecute desde la ventana el programa, recordar cambiar el nombre main
     //Recordar entrar en propiedades del proyecto para seleccionar como run file la ventana.
     //al abrir la ventana se ejecutaran los siguientes metodos
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        //        try {
+        // TODO add your handling code here:
+//            principal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xls");
+//            ventanaPrincipal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas - copia.xls");
+//            ventanaPrincipal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas - copia (2).xls");
+//        } catch (IOException ex) {
+//            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
         try {
-            // TODO add your handling code here:
-            principal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas.xls");
-//            principal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas - copia.xls");
-//            principal("\\SAF2_Visor_Diario_Listado_de_Ventas_x_Fechas - copia (2).xls");
+            connection();
         } catch (IOException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        vl = new VentanaLogin(this, true);
+        vl.setLocationRelativeTo(this);
+        vl.setVisible(true);
     }//GEN-LAST:event_formWindowOpened
+
+    public static void connection() throws IOException {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                try {
+                    conex.desconectar();
+                    System.out.println("Desconectando...");
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        conex = new DbConnection();
+
+        Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+//                    System.out.println("conex " + conex);
+                    if (conex.getConnection().isClosed()) {
+                        try {
+                            conex = new DbConnection();
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    Thread.sleep(1000);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        thread.start();
+    }
+
 //----------------------------------------Boton para agregar info a cada mes---------------------------------------------------------------------------
     private void jButtonAgregarMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarMesActionPerformed
         // TODO add your handling code here:
@@ -335,7 +381,7 @@ public class Principal extends javax.swing.JFrame {
         VentanaDescargar ventanaDescargar = new VentanaDescargar(this, true);
         ventanaDescargar.setLocationRelativeTo(this);
         ventanaDescargar.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -357,28 +403,29 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                principal = new Principal();
-                principal.setVisible(true);
+                ventanaPrincipal = new VentanaPrincipal();
+                ventanaPrincipal.setVisible(true);
             }
         });
 
@@ -408,6 +455,7 @@ public class Principal extends javax.swing.JFrame {
     private rojeru_san.componentes.RSDateChooser rSDateChooser3;
     private rojeru_san.componentes.RSDateChooser rSDateChooser4;
     // End of variables declaration//GEN-END:variables
+    public static VentanaLogin vl;
 }
 //--------------------------------------------------------------------------------------------------------
 
