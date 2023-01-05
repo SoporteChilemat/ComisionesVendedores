@@ -6,6 +6,7 @@ package LOGICA;
 import CLASES.Vendedores;
 import CLASES.Ventas;
 import CLASES.Excel;
+import CLASES.PanelLocal;
 import VENTANAS.Principal;
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +56,7 @@ public class ComisionesVendedores {
         HSSFWorkbook wb = new HSSFWorkbook(ExcelFileToRead);
         HSSFSheet sheet = wb.getSheetAt(0);
         Row row;
-        
+
         Cell cell;
         Iterator rows = sheet.rowIterator();
         // estos rows.next() ven las celdas en donde comenzar a leer el excel.
@@ -260,19 +261,7 @@ public class ComisionesVendedores {
                 }
                 cont++;
             }
-
-//            System.out.println("contador global de lectura " + contador);
-//            System.out.println("Nombre " + excel.getNombre());
-//            System.out.println("rutCliente " + excel.getRutCliente());
-//            System.out.println("razonSocial " + excel.getRazonSocial());
-//            System.out.println("numeroDoc " + excel.getNumeroDoc());
-//            System.out.println("fechaEmision " + (excel.getFechaEmision()).substring(0, 10));
-//            System.out.println("medioPago " + excel.getMedioPago());
-//            System.out.println("neto " + excel.getNeto());
-//            System.out.println("Doc " + excel.getDoc());
-//            System.out.println("-------------------------------------------");
             arrExcel.add(excel); //agregar persona al arreglo
-
             contador++;
         }
 
@@ -363,21 +352,18 @@ public class ComisionesVendedores {
         System.out.println("arrFinal.size() " + arrFinal.size());
 
 //        Principal.jComboBoxVendedoresVA.removeAllItems();
-
         for (int k = 0; k < arrFinal.size(); k++) {
 
             Vendedores vendedor = arrFinal.get(k);
 
-//            Principal.jComboBoxVendedoresVA.addItem(vendedor.getNombre());
+            PanelLocal.jComboBoxVendedoresVA.addItem(vendedor.getNombre());
 //            Principal.jComboBoxVendedoresPB.addItem(vendedor.getNombre());
 //            Principal.jComboBoxVendedoresOL.addItem(vendedor.getNombre());
 
             Principal.principal.repaint();
-            Principal.principal.revalidate();           
+            Principal.principal.revalidate();
         }
     }
 //---------------------------------------------------------------------------------------    
 
-    public static void mostrarVendedoresEnTabla() {
-    }
 }

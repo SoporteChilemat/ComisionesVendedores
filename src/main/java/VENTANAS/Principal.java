@@ -66,7 +66,7 @@ public class Principal extends javax.swing.JFrame {
         rSDateChooser3 = new rojeru_san.componentes.RSDateChooser();
         rSDateChooser4 = new rojeru_san.componentes.RSDateChooser();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jButtonAgregarMes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -116,6 +116,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -211,10 +212,10 @@ public class Principal extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", " " }));
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAgregarMes.setText("Agregar");
+        jButtonAgregarMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAgregarMesActionPerformed(evt);
             }
         });
 
@@ -230,7 +231,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonAgregarMes)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -244,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jButtonAgregarMes)
                         .addContainerGap())))
         );
 
@@ -272,6 +273,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.setText("Menu");
 
         jMenuItem1.setText("Descargar Reporte");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -294,7 +300,7 @@ public class Principal extends javax.swing.JFrame {
 
     //metodo que hace que se ejecute desde la ventana el programa, recordar cambiar el nombre main
     //Recordar entrar en propiedades del proyecto para seleccionar como run file la ventana.
-
+    //al abrir la ventana se ejecutaran los siguientes metodos
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             // TODO add your handling code here:
@@ -305,8 +311,8 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//----------------------------------------Boton para agregar info a cada mes---------------------------------------------------------------------------
+    private void jButtonAgregarMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarMesActionPerformed
         // TODO add your handling code here:
         int selectedIndex = jTabbedPanePrincipal.getSelectedIndex();
 
@@ -323,7 +329,15 @@ public class Principal extends javax.swing.JFrame {
             default:
                 break;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAgregarMesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        VentanaDescargar ventanaDescargar = new VentanaDescargar(this, true);
+        ventanaDescargar.setLocationRelativeTo(this);
+        ventanaDescargar.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+//------------------------------------------------------------------------------------------------------------------------------------
 
     /**
      * @param args the command line arguments
@@ -371,10 +385,10 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButtonAgregarMes;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -399,15 +413,15 @@ public class Principal extends javax.swing.JFrame {
 
 class PanelBotonRenderer implements TableCellRenderer {
 
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAgregarMes;
     private javax.swing.JPanel jPanel1;
 
     PanelBotonRenderer() {
 
-        jButton1 = new javax.swing.JButton();
+        jButtonAgregarMes = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
-        jButton1.setText("Quitar");
+        jButtonAgregarMes.setText("Quitar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -415,14 +429,14 @@ class PanelBotonRenderer implements TableCellRenderer {
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAgregarMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAgregarMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
         );
     }
@@ -432,10 +446,11 @@ class PanelBotonRenderer implements TableCellRenderer {
         return jPanel1;
     }
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class PanelBotonEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
 
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAgregarMes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable tabla;
     private javax.swing.JComboBox<String> combobox;
@@ -449,12 +464,12 @@ class PanelBotonEditor extends AbstractCellEditor implements TableCellEditor, Ac
         this.tabla = tabla;
         this.combobox = combobox;
 
-        jButton1 = new javax.swing.JButton();
+        jButtonAgregarMes = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
-        jButton1.addActionListener(this);
+        jButtonAgregarMes.addActionListener(this);
 
-        jButton1.setText("Quitar");
+        jButtonAgregarMes.setText("Quitar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -462,14 +477,14 @@ class PanelBotonEditor extends AbstractCellEditor implements TableCellEditor, Ac
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAgregarMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAgregarMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
         );
     }

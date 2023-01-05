@@ -122,6 +122,7 @@ public class PanelLocal extends java.awt.Panel {
         JViewport name1 = (JViewport) name.getComponent(0);// obtengo lo visible
         JTable name2 = (JTable) name1.getComponent(0);// obtengo la tabla
         */
+        
         String nombreVendedorSeleccionado = jComboBoxVendedoresVA.getSelectedItem().toString(); //nombre de vendedor seleccionado
         int selectIndexVendedor = jComboBoxVendedoresVA.getSelectedIndex();
         int selectedIndex = jPanelTablaVA.getSelectedIndex();
@@ -158,7 +159,7 @@ public class PanelLocal extends java.awt.Panel {
 
         for (int i = 0; i < name2.getRowCount(); i++) {
             String toString = name2.getValueAt(i, 0).toString();
-//
+            
 //            if (selectedIndex == 0) {
 //                jComboBoxVendedoresVA.addItem(toString);
 //            } else if (selectedIndex == 1) {
